@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Idea Generator 💡</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>💡 Idea Generator Tool</h1>
+    <button id="toggle-theme">🌙 Toggle Theme</button>
+  </header>
+
+  <main>
+    <label for="category">Choose Category:</label>
+    <select id="category">
+      <option value="tech">Tech</option>
+      <option value="edtech">EdTech</option>
+      <option value="fashion">Fashion</option>
+      <option value="content">Content</option>
+      <option value="names">Names</option>
+    </select>
+
+    <button id="generate">Generate Idea</button>
+    <div id="idea-box" class="animated">Your idea will appear here...</div>
+
+    <div class="actions">
+      <button id="explain">🧠 Explain</button>
+      <button id="like">👍</button>
+      <button id="dislike">👎</button>
+      <button id="save">❤️ Save to Favorites</button>
+    </div>
+
+    <button id="show-favorites">📜 View Favorites</button>
+    <button id="export-favorites">📤 Export to TXT</button>
+
+    <div id="favorites"></div>
+  </main>
+
+  <footer>
+    <p>© 2025 Created by Mehak 💻</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
