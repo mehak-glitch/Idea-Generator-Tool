@@ -1,0 +1,70 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fdf6e3;
+  color: #333;
+  margin: 0;
+  padding: 1rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0078d4;
+  color: white;
+  padding: 1rem;
+}
+
+main {
+  max-width: 600px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+#idea-box {
+  margin: 1rem auto;
+  padding: 1rem;
+  background: #e0f7fa;
+  border-radius: 8px;
+  min-height: 60px;
+  transition: all 0.5s;
+}
+
+.actions button {
+  margin: 0.5rem;
+}
+
+#favorites {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #fff8dc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #8b4513;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #a0522d;
+}
+
+.animated {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
