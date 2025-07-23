@@ -1,98 +1,105 @@
-const ideas = {
-  tech: [
-    "No-code website builder",
-    "AI bug detector for devs",
-    "Privacy-first search engine",
-    "Remote work productivity dashboard"
-  ],
-  edtech: [
-    "Gamified language learning for kids",
-    "Peer-to-peer tutoring marketplace",
-    "AI teaching assistant for classrooms"
-  ],
-  fashion: [
-    "AI stylist for Instagram looks",
-    "Rental outfit marketplace",
-    "Custom virtual fitting room"
-  ],
-  content: [
-    "Blog: Tech for non-techies",
-    "Podcast: Founders under 25",
-    "YouTube: Daily UI clone challenge"
-  ],
-  names: [
-    "MindMeld", "SwiftCollab", "IdeaSpark", "TrendForge"
-  ]
-};
+const ideas = [
+  {
+    category: "tech",
+    idea: "AI-powered code reviewer",
+    explanation: "A tool that scans your code, suggests improvements, and detects bugs using AI."
+  },
+  {
+    category: "ai",
+    idea: "Voice cloning for digital assistants",
+    explanation: "Users can clone their voice for smart assistants like Alexa, Siri, etc."
+  },
+  {
+    category: "fashion",
+    idea: "Virtual try-on mirror",
+    explanation: "Augmented reality mirror that lets you try clothes virtually."
+  },
+  {
+    category: "edtech",
+    idea: "Peer-to-peer tutoring platform",
+    explanation: "Students can sign up to tutor each other and earn rewards or points."
+  },
+  {
+    category: "content",
+    idea: "Blog: Tech for non-techies",
+    explanation: "A blog that simplifies tech trends, tools, and news for everyday users."
+  },
+  {
+    category: "names",
+    idea: "Brand name: SwiftCollab",
+    explanation: "Name for a team productivity app that helps teams collaborate quickly."
+  }
+];
 
-const explanations = {
-  "No-code website builder": "Allows users to create websites without writing code, using drag-and-drop tools.",
-  "AI bug detector for devs": "Uses machine learning to analyze code and spot potential bugs automatically.",
-  "MindMeld": "A name suggesting a deep connection between ideas, great for a brainstorming app."
-};
-
-let currentIdea = "";
-const box = document.getElementById("idea-box");
+let currentIdea = null;
+const ideaText = document.getElementById("idea-text");
+const explanationText = document.getElementById("idea-explanation");
 
 document.getElementById("generate").addEventListener("click", () => {
   const category = document.getElementById("category").value;
-  const list = ideas[category];
-  const idea = list[Math.floor(Math.random() * list.length)];
+  const filtered = category === "all" ? ideas : ideas.filter(i => i.category === category);
+  const idea = filtered[Math.floor(Math.random() * filtered.length)];
   currentIdea = idea;
-  box.classList.remove("animated");
-  void box.offsetWidth; // force reflow
-  box.classList.add("animated");
-  box.textContent = idea;
-});
-
-document.getElementById("save").addEventListener("click", () => {
-  if (!currentIdea) return;
-  let favs = JSON.parse(localStorage.getItem("favorites") || "[]");
-  if (!favs.includes(currentIdea)) {
-    favs.push(currentIdea);
-    localStorage.setItem("favorites", JSON.stringify(favs));
-    alert("Saved to favorites!");
-  }
-});
-
-document.getElementById("show-favorites").addEventListener("click", () => {
-  let favs = JSON.parse(localStorage.getItem("favorites") || "[]");
-  const favDiv = document.getElementById("favorites");
-  favDiv.innerHTML = "<h3>Favorites</h3>";
-  favs.forEach((idea, idx) => {
-    favDiv.innerHTML += `<div>${idea} <button onclick="removeFavorite(${idx})">❌</button></div>`;
-  });
-});
-
-function removeFavorite(idx) {
-  let favs = JSON.parse(localStorage.getItem("favorites") || "[]");
-  favs.splice(idx, 1);
-  localStorage.setItem("favorites", JSON.stringify(favs));
-  document.getElementById("show-favorites").click(); // refresh
-}
-
-document.getElementById("toggle-theme").addEventListener("click", () => {
-  document.body.classList.toggle("dark");
+  ideaText.innerText = idea.idea;
+  explanationText.innerText = "";
 });
 
 document.getElementById("explain").addEventListener("click", () => {
-  alert(explanations[currentIdea] || "No explanation available.");
+  if (currentIdea) {
+    explanationText.innerText = currentIdea.explanation;
+  }
 });
 
+document.getElementById("theme-toggle").addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+});
+
+document.getElementById("save").addEventListener("click", () => {
+  if (currentIdea) {
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    if (!favorites.some(f => f.idea === currentIdea.idea)) {
+      favorites.push(currentIdea);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      alert("Saved to favorites!");
+    } else {
+      alert("Already in favorites!");
+    }
+  }
+});
+
+document.getElementById("view-favorites").addEventListener("click", () => {
+  const list = document.getElementById("favorites");
+  const wrapper = document.getElementById("favorites-list");
+  list.innerHTML = "";
+  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  if (favorites.length === 0) {
+    list.innerHTML = "<li>No favorites yet!</li>";
+  } else {
+    favorites.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = `${item.idea} - ${item.explanation}`;
+      list.appendChild(li);
+    });
+  }
+  wrapper.classList.toggle("hidden");
+});
+
+document.getElementById("export-json").addEventListener("click", () => {
+  let data = JSON.parse(localStorage.getItem("favorites")) || [];
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "my_favorite_ideas.json";
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// Voting just for interaction (can enhance)
 document.getElementById("like").addEventListener("click", () => {
-  alert("👍 You liked this idea!");
+  alert("👍 Thanks for liking the idea!");
 });
 
 document.getElementById("dislike").addEventListener("click", () => {
-  alert("👎 You disliked this idea!");
-});
-
-document.getElementById("export-favorites").addEventListener("click", () => {
-  let favs = JSON.parse(localStorage.getItem("favorites") || "[]");
-  if (favs.length === 0) return alert("No favorites to export!");
-  const blob = new Blob([favs.join("\n")], { type: "text/plain" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "favorites.txt";
-  a.click();
+  alert("👎 We'll try to improve!");
 });
