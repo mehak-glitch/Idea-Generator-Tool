@@ -4,48 +4,53 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>💡 Idea Generator Tool</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <header>
-    <h1>💡 Idea Generator</h1>
-    <button id="theme-toggle">🌙 Toggle Theme</button>
+    <h1>💡 Idea Generator Tool</h1>
+    <button id="themeToggle">🌓 Toggle Theme</button>
   </header>
 
   <main>
-    <label for="category">Choose Category:</label>
-    <select id="category">
-      <option value="all">All</option>
-      <option value="tech">Tech</option>
-      <option value="fashion">Fashion</option>
-      <option value="ai">AI</option>
-      <option value="edtech">EdTech</option>
-      <option value="content">Content</option>
-    </select>
-
-    <button id="generate">🎲 Generate Idea</button>
-
-    <div id="idea-box">
-      <h2 id="idea-text">Your idea will appear here...</h2>
-      <p id="idea-explanation"></p>
-      <div class="actions">
-        <button id="explain">🧠 Explain this Idea</button>
-        <button id="like">👍</button>
-        <button id="dislike">👎</button>
-        <button id="save">❤️ Save to Favorites</button>
-      </div>
+    <div class="controls">
+      <select id="categorySelect">
+        <option value="random">All Categories</option>
+        <option value="tech">Tech</option>
+        <option value="fashion">Fashion</option>
+        <option value="ai">AI</option>
+        <option value="edtech">EdTech</option>
+      </select>
+      <button id="generateBtn">🎲 Generate Idea</button>
     </div>
 
-    <button id="view-favorites">📜 View Favorites</button>
-    <button id="export-json">📤 Export to JSON</button>
+    <div id="ideaBox" class="animated-box">✨ Your next big idea appears here!</div>
 
-    <div id="favorites-list" class="hidden">
-      <h3>❤️ Your Favorite Ideas:</h3>
-      <ul id="favorites"></ul>
+    <div class="actions">
+      <button id="saveBtn">❤️ Save</button>
+      <button id="explainBtn">❓ Explain</button>
+      <button id="exportBtn">📤 Export</button>
+      <button id="favoritesBtn">⭐ View Favorites</button>
+    </div>
+
+    <div class="vote">
+      <button id="likeBtn">👍</button>
+      <button id="dislikeBtn">👎</button>
     </div>
   </main>
 
-  <footer>© 2025 Idea Generator | Made by Mehak</footer>
+  <!-- Favorites Modal -->
+  <div id="favoritesModal" class="modal hidden">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>⭐ Favorite Ideas</h2>
+      <ul id="favoritesList"></ul>
+    </div>
+  </div>
+
+  <footer>
+    <p>Made with 💖 by Mehak</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
