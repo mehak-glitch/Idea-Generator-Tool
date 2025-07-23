@@ -3,44 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Idea Generator 💡</title>
+  <title>💡 Idea Generator Tool</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>💡 Idea Generator Tool</h1>
-    <button id="toggle-theme">🌙 Toggle Theme</button>
+    <h1>💡 Idea Generator</h1>
+    <button id="theme-toggle">🌙 Toggle Theme</button>
   </header>
 
   <main>
     <label for="category">Choose Category:</label>
     <select id="category">
+      <option value="all">All</option>
       <option value="tech">Tech</option>
-      <option value="edtech">EdTech</option>
       <option value="fashion">Fashion</option>
+      <option value="ai">AI</option>
+      <option value="edtech">EdTech</option>
       <option value="content">Content</option>
-      <option value="names">Names</option>
     </select>
 
-    <button id="generate">Generate Idea</button>
-    <div id="idea-box" class="animated">Your idea will appear here...</div>
+    <button id="generate">🎲 Generate Idea</button>
 
-    <div class="actions">
-      <button id="explain">🧠 Explain</button>
-      <button id="like">👍</button>
-      <button id="dislike">👎</button>
-      <button id="save">❤️ Save to Favorites</button>
+    <div id="idea-box">
+      <h2 id="idea-text">Your idea will appear here...</h2>
+      <p id="idea-explanation"></p>
+      <div class="actions">
+        <button id="explain">🧠 Explain this Idea</button>
+        <button id="like">👍</button>
+        <button id="dislike">👎</button>
+        <button id="save">❤️ Save to Favorites</button>
+      </div>
     </div>
 
-    <button id="show-favorites">📜 View Favorites</button>
-    <button id="export-favorites">📤 Export to TXT</button>
+    <button id="view-favorites">📜 View Favorites</button>
+    <button id="export-json">📤 Export to JSON</button>
 
-    <div id="favorites"></div>
+    <div id="favorites-list" class="hidden">
+      <h3>❤️ Your Favorite Ideas:</h3>
+      <ul id="favorites"></ul>
+    </div>
   </main>
 
-  <footer>
-    <p>© 2025 Created by Mehak 💻</p>
-  </footer>
+  <footer>© 2025 Idea Generator | Made by Mehak</footer>
 
   <script src="script.js"></script>
 </body>
